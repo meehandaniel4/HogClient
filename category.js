@@ -1,6 +1,6 @@
 const categories = {
   combat: { symbol: '⚔', title: 'Combat', intro: 'Sharpen timing, understand each exchange, and track your performance with focused combat tools.', features: [
-    ['AutoClicker', 'Clicks while the attack button is held, with minimum and maximum CPS, randomized timing, and an optional target-only mode.'],
+    ['AutoClicker', 'Defaults to vanilla weapon-cooldown timing, automatically following the held item’s attack speed for fully charged hits. Adjustable CPS timing and target-only mode remain optional.'],
     ['WTap Trainer', 'Shows a live HUD cue for when to release and repress forward during PvP practice. It is a training display and never moves for you.'],
     ['HitSelect Trainer', 'Displays attack-cooldown timing and highlights the recommended moment to hit without automatically attacking.'],
     ['CPS Counter', 'Tracks left- and right-click activity over a rolling one-second window and displays both values on screen.'],
@@ -71,5 +71,5 @@ document.querySelector('#feature-list').innerHTML = selected.features.map((featu
   </article>`).join('') + `
   <section class="category-cta reveal">
     <div><h2>Ready to try Hog V1?</h2><p>Minecraft 1.21.11 · Fabric Loader · Java 21</p></div>
-    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.0/hog-v1-1.0.0.jar">Download v1.0.0 <span>↓</span></a>
+    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.1/hog-v1-1.0.1.jar">Download v1.0.1 <span>↓</span></a>
   </section>`;

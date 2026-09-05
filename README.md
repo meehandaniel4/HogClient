@@ -6,7 +6,7 @@ The client includes a searchable ClickGUI, configurable keybinds, profiles, drag
 
 ## Download
 
-[Download Hog V1 1.0.0](https://github.com/meehandaniel4/HogClient/releases/download/v1.0.0/hog-v1-1.0.0.jar)
+[Download Hog V1 1.0.1](https://github.com/meehandaniel4/HogClient/releases/download/v1.0.1/hog-v1-1.0.1.jar)
 
 Hog V1 requires Minecraft 1.21.11, Fabric Loader, Fabric API, and Java 21.
 
@@ -18,4 +18,4 @@ Visit the [Hog V1 website](https://meehandaniel4.github.io/HogClient/) for featu
 
 Hog V1 behaves like a normal Fabric client mod. It does not contain hidden injection, packet spoofing, or anti-cheat bypass code. Configuration remains local in `config/hogv1/`.
 
-The website source is maintained on the `main` branch. The original client source remains available in the repository history at commit [`1733600`](https://github.com/meehandaniel4/HogClient/tree/1733600).
+The website source is maintained on `main`. Current client source is available on the [`client-source`](https://github.com/meehandaniel4/HogClient/tree/client-source) branch.
