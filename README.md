@@ -6,7 +6,7 @@ The client includes a searchable ClickGUI, configurable native fonts, keybinds, 
 
 ## Download
 
-[Download Hog V1 1.1.0](https://github.com/meehandaniel4/HogClient/releases/download/v1.1.0/hog-v1-1.1.0.jar)
+[Download Hog V1 1.1.1](https://github.com/meehandaniel4/HogClient/releases/download/v1.1.1/hog-v1-1.1.1.jar)
 
 Hog V1 requires Minecraft 1.21.11, Fabric Loader, Fabric API, and Java 21.
 

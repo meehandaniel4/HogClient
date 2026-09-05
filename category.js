@@ -71,5 +71,5 @@ document.querySelector('#feature-list').innerHTML = selected.features.map((featu
   </article>`).join('') + `
   <section class="category-cta reveal">
     <div><h2>Ready to try Hog V1?</h2><p>Minecraft 1.21.11 · Fabric Loader · Java 21</p></div>
-    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.1.0/hog-v1-1.1.0.jar">Download v1.1.0 <span>↓</span></a>
+    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.1.1/hog-v1-1.1.1.jar">Download v1.1.1 <span>↓</span></a>
   </section>`;
