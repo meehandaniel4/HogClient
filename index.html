@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d0d11">
+  <meta name="description" content="Hog V1 is a polished client-side utility, training, render, and HUD mod for Minecraft Fabric 1.21.11.">
+  <meta property="og:title" content="Hog V1 — Minecraft client-side mod">
+  <meta property="og:description" content="A focused Fabric client with a modern ClickGUI, draggable HUD, training tools, and visual utilities.">
+  <title>Hog V1 — Built for your game</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="nav wrap">
+    <a class="brand" href="#top" aria-label="Hog V1 home"><span class="mark"><span></span><span></span></span><span>HOG <b>V1</b></span></a>
+    <nav aria-label="Primary navigation"><a href="#features">Features</a><a href="#modules">Modules</a><a href="#install">Install</a></nav>
+    <a class="nav-download" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.0/hog-v1-1.0.0.jar">Download <span>1.0.0</span></a>
+  </header>
+  <main id="top">
+    <section class="hero wrap">
+      <div class="hero-copy reveal">
+        <div class="eyebrow"><i></i> Fabric · Minecraft 1.21.11</div>
+        <h1>Your game.<br><em>Your way.</em></h1>
+        <p>Hog V1 brings focused utilities, training feedback, visual clarity, and a fully configurable HUD into one lightweight client-side mod.</p>
+        <div class="hero-actions"><a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.0/hog-v1-1.0.0.jar">Download Hog V1 <span>↓</span></a><a class="button ghost" href="#features">Explore features</a></div>
+        <div class="requirements"><span>v1.0.0</span><span>Java 21</span><span>Fabric API</span></div>
+      </div>
+      <div class="client-window reveal" aria-label="Preview of the Hog V1 interface">
+        <div class="window-bar"><div class="dots"><i></i><i></i><i></i></div><span>HOG V1</span><small>RSHIFT</small></div>
+        <div class="window-body"><aside><strong>HOG <b>V1</b></strong><ul><li class="active">Combat</li><li>Movement</li><li>Render</li><li>Player</li><li>World</li><li>HUD</li><li>Settings</li></ul></aside>
+          <div class="module-pane"><div class="search">⌕&nbsp;&nbsp; Search modules…</div><div class="module on"><div><b>AutoClicker</b><small>Controlled, randomized timing</small></div><span></span></div><div class="module"><div><b>WTap Trainer</b><small>Real-time practice cues</small></div><span></span></div><div class="module on"><div><b>CPS Counter</b><small>Left and right click tracking</small></div><span></span></div><div class="settings-preview"><div><span>Minimum CPS</span><b>8</b></div><div class="slider"><i></i></div><div><span>Randomized timing</span><b class="check">✓</b></div></div></div>
+        </div>
+      </div>
+    </section>
+    <section class="statement wrap reveal"><p>More control. Less clutter.</p><h2>A client that stays out of your way until you need it.</h2></section>
+    <section id="features" class="features wrap">
+      <article class="feature feature-large reveal"><div class="number">01</div><div class="icon sliders"></div><h3>Built around you</h3><p>Every module lives in a fast, searchable ClickGUI with toggles, keybinds, sliders, modes, colors, and expandable settings.</p><div class="chips"><span>Profiles</span><span>Search</span><span>Keybinds</span><span>Themes</span></div></article>
+      <article class="feature reveal"><div class="number">02</div><div class="icon pulse"></div><h3>Train with feedback</h3><p>Practice timing with WTap and HitSelect cues, monitor CPS, and read target distance without automating your decisions.</p></article>
+      <article class="feature reveal"><div class="number">03</div><div class="icon eye"></div><h3>See what matters</h3><p>Client-known entity highlights, target information, Fullbright, visual time control, and an adaptable overlay.</p></article>
+    </section>
+    <section id="modules" class="modules-section wrap">
+      <div class="section-head reveal"><div><span>MODULE LIBRARY</span><h2>One client. Every category.</h2></div><p>Choose only the tools you want. Disabled modules stay quiet, and expensive work is kept off the render path wherever possible.</p></div>
+      <div class="category-grid"><article class="reveal"><i>⚔</i><h3>Combat</h3><p>AutoClicker, WTap Trainer, HitSelect, CPS, Reach, Target Info</p></article><article class="reveal"><i>↗</i><h3>Movement</h3><p>Sprint, ToggleSprint, ToggleSneak, SafeWalk, FreeLook</p></article><article class="reveal"><i>◉</i><h3>Render</h3><p>ESP, Fullbright, Tracers, NameTags, Projectiles, visual controls</p></article><article class="reveal"><i>⌁</i><h3>World</h3><p>FreeCam, Waypoints, Breadcrumbs, Search, Storage highlighting</p></article><article class="reveal"><i>▦</i><h3>Player</h3><p>AutoTool, inventory management, armor upgrades, stack refills</p></article><article class="reveal"><i>⌘</i><h3>HUD</h3><p>Eleven draggable widgets with persistent scale, color, and opacity</p></article></div>
+    </section>
+    <section id="install" class="install wrap reveal">
+      <div><span class="eyebrow"><i></i> GET STARTED</span><h2>Three steps.<br>Then press <em>Right Shift.</em></h2></div>
+      <ol><li><b>01</b><div><strong>Install Fabric</strong><p>Use Fabric Loader for Minecraft 1.21.11 and add Fabric API.</p></div></li><li><b>02</b><div><strong>Download Hog V1</strong><p>Grab the latest jar from the official GitHub release.</p></div></li><li><b>03</b><div><strong>Move it to mods</strong><p>Place the jar in your Minecraft <code>mods</code> folder and launch.</p></div></li></ol>
+      <a class="button primary install-button" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.0/hog-v1-1.0.0.jar">Download v1.0.0 <span>↓</span></a>
+    </section>
+  </main>
+  <footer class="wrap"><div class="brand"><span class="mark"><span></span><span></span></span><span>HOG <b>V1</b></span></div><p>Independent Minecraft client-side project. Not affiliated with Mojang Studios or Microsoft.</p><a href="https://github.com/meehandaniel4/HogClient">GitHub ↗</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>
