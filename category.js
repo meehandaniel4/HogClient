@@ -15,8 +15,8 @@ const categories = {
     ['FreeLook', 'Temporarily rotates the camera independently with a configurable key and restores your normal direction when released.']
   ]},
   render: { symbol: '◉', title: 'Render', intro: 'Improve visual clarity using information already available to the vanilla client.', features: [
-    ['Fullbright', 'Raises client-side scene brightness and safely restores your previous gamma value when disabled.'],
-    ['ESP', 'Highlights selected loaded entity types, including players, mobs, and passive animals, with a configurable distance limit.'],
+    ['Fullbright', 'Choose Gamma or local Night Vision mode. Hog V1 restores the previous gamma and cleans up only the effect it added when disabled.'],
+    ['ESP', 'A wall-visible shader outline for loaded players, hostile mobs, passive animals, and targets. Choose entity-type, custom, health, or distance coloring, filter invisible entities, and set distance and fade ranges.'],
     ['Tracers', 'Draws directional lines toward selected visible, client-known entities.'],
     ['NameTags', 'Enhances name tags with optional health, distance, and armor information.'],
     ['ItemESP', 'Highlights dropped item entities that are already loaded by the client.'],
@@ -71,5 +71,5 @@ document.querySelector('#feature-list').innerHTML = selected.features.map((featu
   </article>`).join('') + `
   <section class="category-cta reveal">
     <div><h2>Ready to try Hog V1?</h2><p>Minecraft 1.21.11 · Fabric Loader · Java 21</p></div>
-    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.0.1/hog-v1-1.0.1.jar">Download v1.0.1 <span>↓</span></a>
+    <a class="button primary" href="https://github.com/meehandaniel4/HogClient/releases/download/v1.1.0/hog-v1-1.1.0.jar">Download v1.1.0 <span>↓</span></a>
   </section>`;
