@@ -2,6 +2,6 @@
   "required": true,
   "package": "com.hogv1.mixin",
   "compatibilityLevel": "JAVA_21",
-  "client": ["InGameHudMixin"],
+  "client": ["InGameHudMixin", "EntityColorMixin"],
   "injectors": { "defaultRequire": 1 }
 }

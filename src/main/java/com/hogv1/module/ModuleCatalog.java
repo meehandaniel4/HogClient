@@ -58,7 +58,14 @@ public final class ModuleCatalog {
 
         String[][] widgets = {{"keystrokes","Keystrokes"},{"fps","FPS"},{"coordinates","Coordinates"},{"armor_status","Armor Status"},{"potion_status","Potion Status"},{"clock","Clock"},{"compass","Compass"},{"ping","Ping"},{"speed","Speed"},{"hud_target_info","Target Info"},{"module_list","Module List"}};
         for (String[] w : widgets) { Module widget = color(b(w[0], w[1], "Draggable HUD widget.", Category.HUD)); widget.add(new NumberSetting("scale", "Scale", 1, .5, 2.5, .05)); widget.add(new NumberSetting("opacity", "Opacity", .9, .1, 1, .05)); m.register(widget); }
-        Module gui = color(b("gui_settings", "GUI Settings", "Theme, scale, and accent options.", Category.SETTINGS)); gui.add(new ModeSetting("theme", "Theme", "Dark", "Dark", "Light")); gui.add(new NumberSetting("scale", "GUI scale", 1, .75, 1.5, .05)); m.register(gui);
+        Module gui = color(b("gui_settings", "GUI Settings", "Theme, font, scale, accent, and active-module options.", Category.SETTINGS));
+        gui.add(new ModeSetting("theme", "Theme", "Dark", "Dark", "Light"));
+        gui.add(new ModeSetting("font", "Font", "Comfortaa", "Minecraft", "Arial Compatible", "Comfortaa", "JetBrains Mono", "Roboto"));
+        gui.add(new NumberSetting("scale", "GUI scale", 1, .75, 1.5, .05));
+        gui.add(new BooleanSetting("active_modules", "Active modules", true));
+        gui.add(new ModeSetting("active_sort", "Active list sort", "Text Width", "Text Width", "Alphabetical"));
+        gui.add(new BooleanSetting("active_background", "Active list background", true));
+        m.register(gui);
     }
     private static Module b(String id, String name, String description, Category c) { return new BasicModule(id, name, description, c); }
     private static Module keyed(String id, String name, String description, Category c) { Module x=b(id,name,description,c); x.add(new KeybindSetting("activation_key", "Activation key", -1)); return x; }

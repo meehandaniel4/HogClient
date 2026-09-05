@@ -3,6 +3,8 @@ package com.hogv1.hud;
 import com.google.gson.*;
 import com.hogv1.module.Module;
 import com.hogv1.module.ModuleManager;
+import com.hogv1.module.Category;
+import com.hogv1.util.Fonts;
 import java.nio.file.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -26,24 +28,31 @@ public final class HUDManager {
     public void move(String id,int x,int y) { positions.put(id,new Position(Math.max(0,x),Math.max(0,y))); }
     public void render(DrawContext context) {
         MinecraftClient c=MinecraftClient.getInstance(); if (c.player==null || c.currentScreen instanceof com.hogv1.gui.ClickGUI) return;
-        for (Module m: modules.all()) if (m.category()==com.hogv1.module.Category.HUD && m.isEnabled()) draw(context,m,position(m.id()),false);
+        for (Module m: modules.all()) if (m.category()==Category.HUD && m.isEnabled()&&!m.id().equals("module_list")) draw(context,m,position(m.id()),false);
+        drawActiveModules(context,c);
         int center=context.getScaledWindowWidth()/2;
-        if(modules.enabled("wtap_trainer")&&c.targetedEntity instanceof LivingEntity){String cue=c.player.input.hasForwardMovement()?"W-TAP: release W":"W-TAP: press W";context.drawCenteredTextWithShadow(c.textRenderer,cue,center,context.getScaledWindowHeight()/2+24,0xfff5cb63);}
-        if(modules.enabled("hitselect_trainer")&&c.targetedEntity instanceof LivingEntity){float ready=c.player.getAttackCooldownProgress(0);String cue=ready>.9f?"HIT SELECT: ready":String.format(Locale.ROOT,"HIT SELECT: %.0f%%",ready*100);context.drawCenteredTextWithShadow(c.textRenderer,cue,center,context.getScaledWindowHeight()/2+36,ready>.9f?0xff75e0aa:0xfff5cb63);}
-        int y=8;if(modules.enabled("cps_counter")){context.drawTextWithShadow(c.textRenderer,"CPS  "+com.hogv1.HogV1.clicks().leftCps()+" | "+com.hogv1.HogV1.clicks().rightCps(),context.getScaledWindowWidth()-90,y,0xffffffff);y+=13;}
-        if(modules.enabled("reach_display")){String reach=c.targetedEntity==null?"Reach  —":String.format(Locale.ROOT,"Reach  %.2fm",c.player.distanceTo(c.targetedEntity));context.drawTextWithShadow(c.textRenderer,reach,context.getScaledWindowWidth()-90,y,0xffffffff);y+=13;}
-        if(modules.enabled("target_info")&&c.targetedEntity instanceof LivingEntity e){String target=e.getName().getString()+String.format(Locale.ROOT,"  %.1f HP  %d armor  %.1fm",e.getHealth(),e.getArmor(),c.player.distanceTo(e));context.drawTextWithShadow(c.textRenderer,target,center-c.textRenderer.getWidth(target)/2,context.getScaledWindowHeight()-58,0xffffffff);}
+        if(modules.enabled("wtap_trainer")&&c.targetedEntity instanceof LivingEntity){String cue=c.player.input.hasForwardMovement()?"W-TAP: release W":"W-TAP: press W";Fonts.centered(context,c.textRenderer,cue,center,context.getScaledWindowHeight()/2+24,0xfff5cb63);}
+        if(modules.enabled("hitselect_trainer")&&c.targetedEntity instanceof LivingEntity){float ready=c.player.getAttackCooldownProgress(0);String cue=ready>.9f?"HIT SELECT: ready":String.format(Locale.ROOT,"HIT SELECT: %.0f%%",ready*100);Fonts.centered(context,c.textRenderer,cue,center,context.getScaledWindowHeight()/2+36,ready>.9f?0xff75e0aa:0xfff5cb63);}
+        int y=8;if(modules.enabled("cps_counter")){Fonts.draw(context,c.textRenderer,"CPS  "+com.hogv1.HogV1.clicks().leftCps()+" | "+com.hogv1.HogV1.clicks().rightCps(),context.getScaledWindowWidth()-90,y,0xffffffff);y+=13;}
+        if(modules.enabled("reach_display")){String reach=c.targetedEntity==null?"Reach  —":String.format(Locale.ROOT,"Reach  %.2fm",c.player.distanceTo(c.targetedEntity));Fonts.draw(context,c.textRenderer,reach,context.getScaledWindowWidth()-90,y,0xffffffff);y+=13;}
+        if(modules.enabled("target_info")&&c.targetedEntity instanceof LivingEntity e){String target=e.getName().getString()+String.format(Locale.ROOT,"  %.1f HP  %d armor  %.1fm",e.getHealth(),e.getArmor(),c.player.distanceTo(e));Fonts.draw(context,c.textRenderer,target,center-Fonts.width(c.textRenderer,target)/2,context.getScaledWindowHeight()-58,0xffffffff);}
     }
     public void draw(DrawContext ctx,Module m,Position p,boolean preview) {
         MinecraftClient c=MinecraftClient.getInstance(); String value=value(m.id(),c);
         int color=m.setting("color") == null ? 0xfff05a78 : m.color("color");
-        int width=Math.max(48,c.textRenderer.getWidth(value)+10), height=16;
+        int width=Math.max(48,Fonts.width(c.textRenderer,value)+10), height=16;
         ctx.fill(p.x(),p.y(),p.x()+width,p.y()+height,0xb0181a21);
         ctx.fill(p.x(),p.y(),p.x()+2,p.y()+height,color);
-        ctx.drawTextWithShadow(c.textRenderer,value,p.x()+6,p.y()+4,0xffeeeeF2);
+        Fonts.draw(ctx,c.textRenderer,value,p.x()+6,p.y()+4,0xffeeeeF2);
         if (preview) ctx.drawStrokedRectangle(p.x(),p.y(),width,height,0x99ffffff);
     }
-    public int width(Module m) { return Math.max(48,MinecraftClient.getInstance().textRenderer.getWidth(value(m.id(),MinecraftClient.getInstance()))+10); }
+    public int width(Module m) { return Math.max(48,Fonts.width(MinecraftClient.getInstance().textRenderer,value(m.id(),MinecraftClient.getInstance()))+10); }
+    private void drawActiveModules(DrawContext ctx,MinecraftClient c){
+        Module settings=modules.get("gui_settings");if(settings==null||!settings.bool("active_modules"))return;
+        List<Module> active=new ArrayList<>(modules.all().stream().filter(Module::isEnabled).filter(m->m.category()!=Category.HUD&&m.category()!=Category.SETTINGS).toList());
+        Comparator<Module> order=settings.mode("active_sort").equals("Alphabetical")?Comparator.comparing(Module::name):Comparator.comparingInt((Module m)->Fonts.width(c.textRenderer,m.name())).reversed();active.sort(order);
+        int y=8,accent=settings.color("color");for(Module module:active){int width=Fonts.width(c.textRenderer,module.name()),x=ctx.getScaledWindowWidth()-width-10;if(settings.bool("active_background"))ctx.fill(x-5,y-2,ctx.getScaledWindowWidth(),y+11,0x9914161c);ctx.fill(ctx.getScaledWindowWidth()-2,y-2,ctx.getScaledWindowWidth(),y+11,accent);Fonts.draw(ctx,c.textRenderer,module.name(),x,y,0xffeeeeF2);y+=13;}
+    }
     private String value(String id,MinecraftClient c) {
         return switch(id) {
             case "fps" -> "FPS  " + c.getCurrentFps();

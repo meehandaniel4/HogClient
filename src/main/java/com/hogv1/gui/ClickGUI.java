@@ -4,6 +4,7 @@ import com.hogv1.HogV1;
 import com.hogv1.module.Category;
 import com.hogv1.module.Module;
 import com.hogv1.module.setting.*;
+import com.hogv1.util.Fonts;
 import java.util.*;
 import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
@@ -23,23 +24,23 @@ public final class ClickGUI extends Screen {
     @Override public void render(DrawContext c,int mx,int my,float delta){
         renderInGameBackground(c); layout(); float a=Math.min(1f,(System.currentTimeMillis()-opened)/180f); int alpha=(int)(235*a)<<24;
         round(c,left,top,left+panelW,top+panelH,10,alpha|0x101218); c.fill(left+148,top,left+149,top+panelH,0x55373b48);
-        c.drawTextWithShadow(textRenderer,"HOG",left+18,top+18,0xfff05a78); c.drawTextWithShadow(textRenderer,"V1",left+48,top+18,0xfff2f2f4);
-        int cy=top+48; for(Category cat:Category.values()){boolean selected=cat==category;if(selected)round(c,left+10,cy-4,left+138,cy+16,5,0xff2b2029);c.drawTextWithShadow(textRenderer,cat.displayName(),left+22,cy,selected?0xfff2748e:0xffa7aab4);cy+=27;}
-        int sx=left+165, sy=top+15, sw=panelW-182; round(c,sx,sy,sx+sw,sy+25,6,searchFocused?0xff292c36:0xff20232b);c.drawTextWithShadow(textRenderer,search.isEmpty()?"Search modules…":search,sx+9,sy+8,search.isEmpty()?0xff777b88:0xffe8e9ed);
-        if(category==Category.HUD){round(c,sx,top+48,sx+100,top+69,5,0xfff05a78);c.drawTextWithShadow(textRenderer,"Edit HUD layout",sx+8,top+55,0xff17181d);}
+        Fonts.draw(c,textRenderer,"HOG",left+18,top+18,0xfff05a78); Fonts.draw(c,textRenderer,"V1",left+48,top+18,0xfff2f2f4);
+        int cy=top+48; for(Category cat:Category.values()){boolean selected=cat==category;if(selected)round(c,left+10,cy-4,left+138,cy+16,5,0xff2b2029);Fonts.draw(c,textRenderer,cat.displayName(),left+22,cy,selected?0xfff2748e:0xffa7aab4);cy+=27;}
+        int sx=left+165, sy=top+15, sw=panelW-182; round(c,sx,sy,sx+sw,sy+25,6,searchFocused?0xff292c36:0xff20232b);Fonts.draw(c,textRenderer,search.isEmpty()?"Search modules…":search,sx+9,sy+8,search.isEmpty()?0xff777b88:0xffe8e9ed);
+        if(category==Category.HUD){round(c,sx,top+48,sx+100,top+69,5,0xfff05a78);Fonts.draw(c,textRenderer,"Edit HUD layout",sx+8,top+55,0xff17181d);}
         int y=top+78+(int)scroll; Module hovered=null;
         c.enableScissor(left+150,top+46,left+panelW-8,top+panelH-8);
         for(Module m:visible()){
-            int h=34+(expanded==m?settingsHeight(m):0); if(y+h>top+48&&y<top+panelH-8){round(c,sx,y,sx+sw,y+h-5,6,0xee1c1f27);c.drawTextWithShadow(textRenderer,m.name(),sx+10,y+8,m.isEnabled()?0xfff27a92:0xffe2e3e7);c.drawTextWithShadow(textRenderer,m.isEnabled()?"ON":"OFF",sx+sw-30,y+8,m.isEnabled()?0xff75e0aa:0xff747986);if(mx>=sx&&mx<sx+sw&&my>=y&&my<y+29)hovered=m;if(expanded==m)drawSettings(c,m,sx+10,y+31,sw-20,mx,my);}
+            int h=34+(expanded==m?settingsHeight(m):0); if(y+h>top+48&&y<top+panelH-8){round(c,sx,y,sx+sw,y+h-5,6,0xee1c1f27);Fonts.draw(c,textRenderer,m.name(),sx+10,y+8,m.isEnabled()?0xfff27a92:0xffe2e3e7);Fonts.draw(c,textRenderer,m.isEnabled()?"ON":"OFF",sx+sw-30,y+8,m.isEnabled()?0xff75e0aa:0xff747986);if(mx>=sx&&mx<sx+sw&&my>=y&&my<y+29)hovered=m;if(expanded==m)drawSettings(c,m,sx+10,y+31,sw-20,mx,my);}
             y+=h;
         }
         c.disableScissor();
         if(hovered!=null)c.drawTooltip(textRenderer,Text.literal(hovered.description()+"  [L toggle · R settings · M bind]"),mx,my);
-        if(binding!=null){c.fill(0,0,width,height,0x88000000);c.drawCenteredTextWithShadow(textRenderer,"Press a key for "+binding.name()+" (Esc cancels)",width/2,height/2,0xffffffff);}
+        if(binding!=null){c.fill(0,0,width,height,0x88000000);Fonts.centered(c,textRenderer,"Press a key for "+binding.name()+" (Esc cancels)",width/2,height/2,0xffffffff);}
     }
     private List<Module> visible(){String q=search.toLowerCase(Locale.ROOT);return HogV1.modules().all().stream().filter(m->(search.isBlank()?m.category()==category:m.name().toLowerCase(Locale.ROOT).contains(q)||m.description().toLowerCase(Locale.ROOT).contains(q))).toList();}
     private int settingsHeight(Module m){return Math.max(25,m.settings().size()*22+5);}
-    private void drawSettings(DrawContext c,Module m,int x,int y,int w,int mx,int my){for(Setting<?> s:m.settings()){c.drawTextWithShadow(textRenderer,s.name(),x,y+5,0xffaeb1ba);String value=format(s);int tw=textRenderer.getWidth(value);c.drawTextWithShadow(textRenderer,value,x+w-tw,y+5,0xfff05a78);if(s instanceof NumberSetting n){int bx=x+w/2, bw=w/2;c.fill(bx,y+17,bx+bw,y+19,0xff343844);int fill=(int)(bw*(n.get()-n.min())/(n.max()-n.min()));c.fill(bx,y+17,bx+fill,y+19,0xfff05a78);}y+=22;}}
+    private void drawSettings(DrawContext c,Module m,int x,int y,int w,int mx,int my){for(Setting<?> s:m.settings()){Fonts.draw(c,textRenderer,s.name(),x,y+5,0xffaeb1ba);String value=format(s);int tw=Fonts.width(textRenderer,value);Fonts.draw(c,textRenderer,value,x+w-tw,y+5,0xfff05a78);if(s instanceof NumberSetting n){int bx=x+w/2, bw=w/2;c.fill(bx,y+17,bx+bw,y+19,0xff343844);int fill=(int)(bw*(n.get()-n.min())/(n.max()-n.min()));c.fill(bx,y+17,bx+fill,y+19,0xfff05a78);}y+=22;}}
     private String format(Setting<?> s){if(s instanceof BooleanSetting)return (Boolean)s.get()?"✓":"□";if(s instanceof NumberSetting)return String.format(Locale.ROOT,"%.2f",(Double)s.get()).replaceAll("\\.?0+$","");if(s instanceof ColorSetting)return String.format("#%08X",(Integer)s.get());return String.valueOf(s.get());}
     @Override public boolean mouseClicked(Click click,boolean doubled){
         if(binding!=null)return true; double mx=click.x(),my=click.y();int sx=left+165,sy=top+15,sw=panelW-182;searchFocused=mx>=sx&&mx<sx+sw&&my>=sy&&my<sy+25;

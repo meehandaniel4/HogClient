@@ -7,12 +7,13 @@ import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import com.hogv1.util.Fonts;
 
 public final class HudEditorScreen extends Screen {
     private Module dragging; private int dx,dy;
     public HudEditorScreen(){super(Text.literal("Hog V1 HUD Layout"));}
     @Override public void render(DrawContext c,int mx,int my,float delta){
-        renderInGameBackground(c); c.drawCenteredTextWithShadow(textRenderer,"HUD Layout — drag widgets, Esc to save",width/2,10,0xffffffff);
+        renderInGameBackground(c); Fonts.centered(c,textRenderer,"HUD Layout — drag widgets, Esc to save",width/2,10,0xffffffff);
         for(Module m:HogV1.modules().all()) if(m.category()==Category.HUD && m.isEnabled()) HogV1.hud().draw(c,m,HogV1.hud().position(m.id()),true);
     }
     @Override public boolean mouseClicked(Click click,boolean doubled){
